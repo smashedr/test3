@@ -1,7 +1,7 @@
 # Django Bootstrap
 
 THIS IS AWESOME!
-boo
+boo hoo
 
 [![build status](https://git.cssnr.com/shane/django_bootstrap/badges/master/build.svg)](https://git.cssnr.com/shane/django_bootstrap/commits/master) [![coverage report](https://git.cssnr.com/shane/django_bootstrap/badges/master/coverage.svg)](https://git.cssnr.com/shane/django_bootstrap/commits/master)
 
