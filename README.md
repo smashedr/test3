@@ -1,6 +1,10 @@
 # Django Bootstrap
 
-[![build status](https://git.cssnr.com/shane/django_bootstrap/badges/master/build.svg)](https://git.cssnr.com/shane/django_bootstrap/commits/master) [![coverage report](https://git.cssnr.com/shane/django_bootstrap/badges/master/coverage.svg)](https://git.cssnr.com/shane/django_bootstrap/commits/master)
+THIS IS AWESOME!
+
+added jenkins badge
+
+[![Build Status](https://jenkins.cssnr.com/buildStatus/icon?job=CI-smashedr-test3)](https://jenkins.cssnr.com/job/CI-smashedr-test3)
 
 A Django Bootstrap Template Including:
 
