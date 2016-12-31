@@ -8,6 +8,8 @@ creating newbranch
 
 making test commit
 
+causing failure, sadface
+
 [![Build Status](https://jenkins.cssnr.com/buildStatus/icon?job=CI-smashedr-test3)](https://jenkins.cssnr.com/job/CI-smashedr-test3)
 
 A Django Bootstrap Template Including:
