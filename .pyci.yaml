@@ -1,4 +1,4 @@
-IMAGE: python:3.5
+IMAGE: python:3.6
 
 SCRIPT:
     - pip install --upgrade pip
@@ -9,5 +9,5 @@ SCRIPT:
     - python manage.py makemigrations
     - python manage.py migrate
     - coverage run manage.py test
-    - coverage report
+    - coverage xml
     - flake8
