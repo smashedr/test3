@@ -12,6 +12,8 @@ causing failure, sadface
 
 fixed failure and added python 3.6
 
+more test
+
 [![Build Status](https://jenkins.cssnr.com/buildStatus/icon?job=smashedr-test3)](https://jenkins.cssnr.com/job/smashedr-test3)
 
 A Django Bootstrap Template Including:
