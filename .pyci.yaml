@@ -11,4 +11,3 @@ SCRIPT:
     - coverage run manage.py test
     - coverage xml
     - flake8
-    - this is not a command
