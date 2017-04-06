@@ -1,14 +1,6 @@
 # Django Bootstrap
 
-THIS IS AWESOME!
-
-added jenkins badge
-
-creating newbranch
-
-making test commit
-
-causing failure, sadface
+Added Ralph
 
 fixed failure and added python 3.6
 
