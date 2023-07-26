@@ -2,15 +2,25 @@ name: Redis Test
 
 on: push
 
+inputs:
+  number:
+    description: 'Test Number'
+    required: false
+    default: '420'
+
 jobs:
   test:
     runs-on: ubuntu-latest
-    container: goodsmileduck/redis-cli
 
     services:
       redis:
         image: redis
+        ports:
+          - 6379:6379
 
     steps:
       - name: Connect to Redis
-        run: redis-cli -h redis ping
+        run: |
+          echo number: ${INPUT_NUMBER}
+          apt-get install redis
+          redis-cli -h localhost ping
