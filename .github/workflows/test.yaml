@@ -13,4 +13,4 @@ jobs:
 
     steps:
       - name: Connect to Redis
-        run: redis-cli ping
+        run: redis-cli -h redis ping
