@@ -8,6 +8,7 @@ on:
         description: 'Number'
         required: true
         default: '420'
+        type: string
 
 jobs:
   test:
