@@ -23,6 +23,6 @@ jobs:
       - name: Connect to Redis
         run: |
           echo github.event.inputs.number: ${{ github.event.inputs.number }}
-          echo number: ${INPUT_NUMBER}
+          echo number: $${INPUT_NUMBER}
 #          sudo apt-get install redis
 #          redis-cli -h localhost ping
