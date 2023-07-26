@@ -1,6 +1,13 @@
 ---
 kind: pipeline
-name: default
+name: test-aarch64
+
+platform:
+  arch: aarch64
+
+trigger:
+  event:
+    - push
 
 steps:
 - name: test
