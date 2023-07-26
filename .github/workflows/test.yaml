@@ -2,7 +2,7 @@ name: Redis Test
 
 on:
   push:
-  workflow_dispatch:
+  workflow_call:
     inputs:
       number:
         description: 'Number'
@@ -23,6 +23,7 @@ jobs:
       - name: Connect to Redis
         run: |
           echo github.event.inputs.number: ${{ github.event.inputs.number }}
-          echo number: $${INPUT_NUMBER}
+          echo inputs.number: ${{ inputs.number }}
+          echo number: ${INPUT_NUMBER}
 #          sudo apt-get install redis
 #          redis-cli -h localhost ping
