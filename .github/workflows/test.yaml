@@ -2,6 +2,11 @@ name: Redis Test
 
 on:
   push:
+    inputs:
+      number:
+        description: 'Test Number'
+        required: false
+        default: '420'
   workflow_dispatch:
     inputs:
       number:
