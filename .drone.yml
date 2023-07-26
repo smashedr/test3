@@ -3,7 +3,7 @@ kind: pipeline
 name: test-aarch64
 
 platform:
-  arch: aarch64
+  arch: arm64
 
 trigger:
   event:
