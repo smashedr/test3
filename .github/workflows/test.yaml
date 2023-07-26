@@ -1,0 +1,16 @@
+name: Redis Test
+
+on: push
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    container: goodsmileduck/redis-cli
+
+    services:
+      redis:
+        image: redis
+
+    steps:
+      - name: Connect to Redis
+        run: redis-cli ping
