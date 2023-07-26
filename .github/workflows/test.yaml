@@ -1,0 +1,28 @@
+name: Redis Test
+
+on:
+  push:
+  workflow_dispatch:
+    inputs:
+      number:
+        description: 'Number'
+        required: true
+        default: '420'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+#    services:
+#      redis:
+#        image: redis
+#        ports:
+#          - 6379:6379
+
+    steps:
+      - name: Connect to Redis
+        run: |
+          echo github.event.inputs.number: ${{ github.event.inputs.number }}
+          echo number: ${INPUT_NUMBER}
+#          sudo apt-get install redis
+#          redis-cli -h localhost ping
