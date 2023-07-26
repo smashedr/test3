@@ -6,9 +6,9 @@ on:
     inputs:
       number:
         description: 'Number'
+        type: string
         required: true
         default: '420'
-        type: string
 
 jobs:
   test:
