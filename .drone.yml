@@ -1,9 +1,7 @@
 ---
+load: "1"
 kind: pipeline
-name: test-aarch64
-
-platform:
-  arch: arm64
+name: test
 
 trigger:
   event:
