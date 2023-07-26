@@ -1,12 +1,13 @@
 name: Redis Test
 
-on: push
-
-inputs:
-  number:
-    description: 'Test Number'
-    required: false
-    default: '420'
+on:
+  push:
+  workflow_dispatch:
+    inputs:
+      number:
+        description: 'Test Number'
+        required: false
+        default: '420'
 
 jobs:
   test:
