@@ -2,7 +2,7 @@ name: Redis Test
 
 on:
   push:
-  workflow_call:
+  workflow_dispatch:
     inputs:
       number:
         description: 'Number'
