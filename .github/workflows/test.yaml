@@ -2,12 +2,6 @@ name: Redis Test
 
 on:
   push:
-    inputs:
-      number:
-        description: 'Number'
-        type: string
-        required: true
-        default: '420'
   workflow_call:
     inputs:
       number:
@@ -15,6 +9,9 @@ on:
         type: string
         required: true
         default: '420'
+
+env:
+  TEST_NUMBER: ${{ ${{ github.event.inputs.number }} || '420' }}
 
 jobs:
   test:
@@ -31,6 +28,6 @@ jobs:
         run: |
           echo github.event.inputs.number: ${{ github.event.inputs.number }}
           echo inputs.number: ${{ inputs.number }}
-          echo number: ${INPUT_NUMBER}
+          echo number: ${TEST_NUMBER}
 #          sudo apt-get install redis
 #          redis-cli -h localhost ping
