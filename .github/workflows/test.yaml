@@ -11,7 +11,7 @@ on:
         default: '420'
 
 env:
-  TEST_NUMBER: ${{ ${{ github.event.inputs.number }} || '420' }}
+  TEST_NUMBER: ${{ github.event.inputs.number || '420' }}
 
 jobs:
   test:
