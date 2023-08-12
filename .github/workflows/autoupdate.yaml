@@ -2,6 +2,7 @@ name: autoupdate
 
 on:
   push:
+    branches-ignore: ["master"]
 
 jobs:
   autoupdate:
