@@ -23,8 +23,8 @@ jobs:
         uses: hosted-domains/gh-push-artifacts@master
         with:
           path: "examples"
-          host: "intranet.cssnr.com"
-          user: ${{ secrets.SFTP_USER }}
-          pass: ${{ secrets.SFTP_PASS }}
+          host: ${{ secrets.RSYNC_HOST }}
+          user: ${{ secrets.RSYNC_USER }}
+          pass: ${{ secrets.RSYNC_PASS }}
           port: "2222"
           base: "/static"
