@@ -17,9 +17,6 @@ jobs:
           path: examples/
 
       - name: "Push Artifacts"
-        uses: hosted-domains/workflows/.github/workflows/push-artifacts.yaml@master
+        uses: hosted-domains/gh-push-artifacts@master
         with:
           name: artifacts
-#            ftp-host: ${{ secrets.FTP_HOST }}
-#            ftp-user: ${{ secrets.FTP_USER }}
-#            ftp-pass: ${{ secrets.FTP_PASS }}
