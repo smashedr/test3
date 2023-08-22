@@ -13,13 +13,13 @@ jobs:
       - name: "Checkout"
         uses: actions/checkout@v3
 
-      - name: "Upload Artifact"
-        uses: actions/upload-artifact@v3
-        with:
-          name: "artifacts"
-          path: "examples/"
+#      - name: "Upload Artifact"
+#        uses: actions/upload-artifact@v3
+#        with:
+#          name: "artifacts"
+#          path: "examples/"
 
       - name: "Push Artifacts"
         uses: hosted-domains/gh-push-artifacts@master
         with:
-          name: "artifacts"
+          path: "examples"
