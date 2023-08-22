@@ -23,3 +23,8 @@ jobs:
         uses: hosted-domains/gh-push-artifacts@master
         with:
           path: "examples"
+          host: "ftp.example.com"
+          user: "shane"
+          pass: "secret123"
+          port: "2222"
+          base: "static"
