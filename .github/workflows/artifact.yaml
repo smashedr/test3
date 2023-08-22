@@ -27,4 +27,4 @@ jobs:
           user: ${{ secrets.SFTP_USER }}
           pass: ${{ secrets.SFTP_PASS }}
           port: "2222"
-          base: "static"
+          base: "/static"
