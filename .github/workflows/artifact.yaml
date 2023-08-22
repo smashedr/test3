@@ -4,17 +4,23 @@ on:
   push:
 
 jobs:
-  push-artifacts:
-    - name: "Upload Artifact"
-      uses: actions/upload-artifact@v3
-      with:
-        name: artifacts
-        path: examples/
+  test:
+    name: "Artifact Test"
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
 
-    - name: "Push Artifacts"
-      uses: hosted-domains/workflows/.github/workflows/push-artifacts.yaml@master
-      with:
-        name: artifacts
-#        ftp-host: ${{ secrets.FTP_HOST }}
-#        ftp-user: ${{ secrets.FTP_USER }}
-#        ftp-pass: ${{ secrets.FTP_PASS }}
+    steps:
+      push-artifacts:
+        - name: "Upload Artifact"
+          uses: actions/upload-artifact@v3
+          with:
+            name: artifacts
+            path: examples/
+
+        - name: "Push Artifacts"
+          uses: hosted-domains/workflows/.github/workflows/push-artifacts.yaml@master
+          with:
+            name: artifacts
+#            ftp-host: ${{ secrets.FTP_HOST }}
+#            ftp-user: ${{ secrets.FTP_USER }}
+#            ftp-pass: ${{ secrets.FTP_PASS }}
