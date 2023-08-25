@@ -8,6 +8,11 @@ on:
         required: true
         default: 'latest'
 
+env:
+  REGISTRY: "ghcr.io"
+  USER: "django-files"
+  REPO: "django-files"
+
 jobs:
   build:
     name: "Build"
@@ -19,7 +24,13 @@ jobs:
         id: step1
         run: |
           echo ${{ inputs.tags }}
-          echo "::set-output name=tags::${{ inputs.tags }}"
+          NEW_TAGS=""
+          IFS=',' read -ra TAGS <<< "${{ inputs.tags }}"
+          for tag in "${TAGS[@]}"; do
+            echo "${REGISTRY}/${USER}/${REPO}:${tag}"
+            NEW_TAGS+="${REGISTRY}/${USER}/${REPO}:${tag},"
+          done
+          echo "tags=${{ inputs.tags }}" >> $GITHUB_OUTPUT
 
       - name: "Testing 2"
         id: step2
