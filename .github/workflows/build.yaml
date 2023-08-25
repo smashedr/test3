@@ -15,9 +15,16 @@ jobs:
     timeout-minutes: 15
 
     steps:
-      - name: "Testing"
+      - name: "Testing 1"
+        id: step1
         run: |
           echo ${{ inputs.tags }}
+          echo "::set-output name=tags::${{ inputs.tags }}"
+
+      - name: "Testing 2"
+        id: step2
+        run: |
+          echo ${{ steps.step1.outputs.tags }}
 #      - name: "Checkout"
 #        uses: actions/checkout@v3
 #
