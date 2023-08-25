@@ -30,7 +30,8 @@ jobs:
             echo "${REGISTRY}/${USER}/${REPO}:${tag}"
             NEW_TAGS+="${REGISTRY}/${USER}/${REPO}:${tag},"
           done
-          echo "tags=${{ inputs.tags }}" >> $GITHUB_OUTPUT
+          NEW_TAGS="$(echo ${NEW_TAGS} | sed 's/,*$//g')"
+          echo "tags=${NEW_TAGS}" >> $GITHUB_OUTPUT
 
       - name: "Testing 2"
         id: step2
