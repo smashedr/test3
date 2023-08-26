@@ -67,7 +67,10 @@ steps:
       - git config core.sshCommand "ssh -i ../.ssh_key -o IdentitiesOnly=yes -o StrictHostKeyChecking=no"
       - git remote add origin $${SERVICE_CONFIGS}
       - git config core.sparseCheckout true
-      - echo "services/$${DRONE_REPO_OWNER}/$${DRONE_REPO_NAME}/$${ENV_NAME}/$${CONFIG_FILE}" >> .git/info/sparse-checkout
+      - for ENV_NAME in $${ENV_NAMES}; do
+      -   echo "services/$${DRONE_REPO_OWNER}/$${DRONE_REPO_NAME}/$${ENV_NAME}/$${CONFIG_FILE}"
+      -   echo "services/$${DRONE_REPO_OWNER}/$${DRONE_REPO_NAME}/$${ENV_NAME}/$${CONFIG_FILE}" >> .git/info/sparse-checkout
+      - done
       - git pull origin master
 
 #  - name: "Update Compose"
@@ -93,9 +96,9 @@ steps:
       - #IFS=',' read -ra ARRAY <<< "$${ENV_NAMES}"
       - #for ENV_NAME in "$${ARRAY[@]}"; do
       - for ENV_NAME in $${ENV_NAMES}; do
-      -   export ENV_FILE="$${CONFIGS_DIR}/services/$${DRONE_REPO_OWNER}/$${DRONE_REPO_NAME}/$${ENV_NAME}/$${CONFIG_FILE}"
       -   echo ENV_NAME $${ENV_NAME}
-      -   echo TRAEFIK_HOST $${TRAEFIK_HOST}
+      -   export ENV_FILE="$${CONFIGS_DIR}/services/$${DRONE_REPO_OWNER}/$${DRONE_REPO_NAME}/$${ENV_NAME}/$${CONFIG_FILE}"
+      -   echo ENV_FILE $${ENV_FILE}
       - done
 
 #      - echo DRONE_DEPLOY_TO $${DRONE_DEPLOY_TO}
