@@ -94,7 +94,6 @@ steps:
       - #for ENV_NAME in "$${ARRAY[@]}"; do
       - for ENV_NAME in $${ENV_NAMES}; do
       -   export ENV_FILE="$${CONFIGS_DIR}/services/$${DRONE_REPO_OWNER}/$${DRONE_REPO_NAME}/$${ENV_NAME}/$${CONFIG_FILE}"
-      -   set -a; . $${ENV_FILE}
       -   echo ENV_NAME $${ENV_NAME}
       -   echo TRAEFIK_HOST $${TRAEFIK_HOST}
       - done
