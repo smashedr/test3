@@ -44,7 +44,7 @@ steps:
       - else
       -   export ENV_NAMES='dev,dev3'
       - fi
-      - echo "ENV_NAMES=$${ENV_NAMES}" >> ./.environment
+      - echo "ENV_NAMES='$${ENV_NAMES}'" >> ./.environment
       - export TRAEFIK_HOST=$(if [ "$${DRONE_DEPLOY_TO}" = prod ];then echo $${PROD_HOST};elif [ "$${DRONE_DEPLOY_TO}" = ralph ];then echo $${RALPH_HOST};else echo $${DEV_HOST};fi)
       - echo "TRAEFIK_HOST='$${TRAEFIK_HOST}'" >> ./.environment
       - echo "VERSION=$${DRONE_SOURCE_BRANCH\/\\/\/\-}" >> ./.environment
@@ -90,8 +90,9 @@ steps:
     commands:
       - set -a; . ./.environment
       - echo ENV_NAMES $${ENV_NAMES}
-      - IFS=',' read -ra ARRAY <<< "$${ENV_NAMES}"
-      - for ENV_NAME in "$${ARRAY[@]}"; do
+      - #IFS=',' read -ra ARRAY <<< "$${ENV_NAMES}"
+      - #for ENV_NAME in "$${ARRAY[@]}"; do
+      - for ENV_NAME in $${ENV_NAMES}; do
       -   export ENV_FILE="$${CONFIGS_DIR}/services/$${DRONE_REPO_OWNER}/$${DRONE_REPO_NAME}/$${ENV_NAME}/$${CONFIG_FILE}"
       -   set -a; . $${ENV_FILE}
       -   echo ENV_NAME $${ENV_NAME}
