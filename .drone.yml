@@ -42,13 +42,13 @@ steps:
       - elif [ "$${DRONE_DEPLOY_TO}" = ralph ];then
       -   export ENV_NAMES='ralph'
       - else
-      -   export ENV_NAMES='dev dev3'
+      -   export ENV_NAMES='dev,dev3'
       - fi
       - echo "ENV_NAMES='$${ENV_NAMES}'" >> ./.environment
-      - export TRAEFIK_HOST=$(if [ "$${DRONE_DEPLOY_TO}" = prod ];then echo $${PROD_HOST};elif [ "$${DRONE_DEPLOY_TO}" = ralph ];then echo $${RALPH_HOST};else echo $${DEV_HOST};fi)
-      - echo "TRAEFIK_HOST='$${TRAEFIK_HOST}'" >> ./.environment
-      - echo "VERSION=$${DRONE_SOURCE_BRANCH\/\\/\/\-}" >> ./.environment
-      - echo "STACK_NAME=$${ENV_NAME}_$${DRONE_REPO_OWNER}_$${DRONE_REPO_NAME}" >> ./.environment
+#      - export TRAEFIK_HOST=$(if [ "$${DRONE_DEPLOY_TO}" = prod ];then echo $${PROD_HOST};elif [ "$${DRONE_DEPLOY_TO}" = ralph ];then echo $${RALPH_HOST};else echo $${DEV_HOST};fi)
+#      - echo "TRAEFIK_HOST='$${TRAEFIK_HOST}'" >> ./.environment
+#      - echo "VERSION=$${DRONE_SOURCE_BRANCH\/\\/\/\-}" >> ./.environment
+#      - echo "STACK_NAME=$${ENV_NAME}_$${DRONE_REPO_OWNER}_$${DRONE_REPO_NAME}" >> ./.environment
 #      - echo  "ENV_FILE=$${CONFIGS_DIR}/services/$${DRONE_REPO_OWNER}/$${DRONE_REPO_NAME}/$${ENV_NAME}/$${CONFIG_FILE}" >> ./.environment
       - cat ./.environment
 
@@ -67,18 +67,24 @@ steps:
       - git config core.sshCommand "ssh -i ../.ssh_key -o IdentitiesOnly=yes -o StrictHostKeyChecking=no"
       - git remote add origin $${SERVICE_CONFIGS}
       - git config core.sparseCheckout true
+      - IFS=','
       - for ENV_NAME in $${ENV_NAMES}; do
       -   echo "services/$${DRONE_REPO_OWNER}/$${DRONE_REPO_NAME}/$${ENV_NAME}/$${CONFIG_FILE}"
       -   echo "services/$${DRONE_REPO_OWNER}/$${DRONE_REPO_NAME}/$${ENV_NAME}/$${CONFIG_FILE}" >> .git/info/sparse-checkout
       - done
       - git pull origin master
 
-#  - name: "Update Compose"
-#    image: alpine
-#    commands:
-#      - set -a; . ./.environment
-#      - sed -i "s/STACK_NAME/$${STACK_NAME}/g" $${COMPOSE_FILE}
-#      - cat $${COMPOSE_FILE}
+  - name: "Update Compose"
+    image: alpine
+    commands:
+      - set -a; . ./.environment
+      - IFS=','
+      - for ENV_NAME in $${ENV_NAMES}; do
+      -   export STACK_NAME="$${ENV_NAME}_$${DRONE_REPO_OWNER}_$${DRONE_REPO_NAME}"
+      -   echo STACK_NAME $${STACK_NAME}
+      -   #sed -i "s/STACK_NAME/$${STACK_NAME}/g" $${COMPOSE_FILE}
+      -   #cat $${COMPOSE_FILE}
+      - done
 
   - name: "Build and Deploy"
     image: docker:dind
@@ -93,8 +99,7 @@ steps:
     commands:
       - set -a; . ./.environment
       - echo ENV_NAMES $${ENV_NAMES}
-      - #IFS=',' read -ra ARRAY <<< "$${ENV_NAMES}"
-      - #for ENV_NAME in "$${ARRAY[@]}"; do
+      - IFS=','
       - for ENV_NAME in $${ENV_NAMES}; do
       -   echo ENV_NAME $${ENV_NAME}
       -   export ENV_FILE="$${CONFIGS_DIR}/services/$${DRONE_REPO_OWNER}/$${DRONE_REPO_NAME}/$${ENV_NAME}/$${CONFIG_FILE}"
