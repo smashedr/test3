@@ -24,14 +24,14 @@ jobs:
         id: step1
         run: |
           echo ${{ inputs.tags }}
-          NEW_TAGS=""
-          IFS=',' read -ra TAGS <<< "${{ inputs.tags }}"
-          for tag in "${TAGS[@]}"; do
+          TAGS=""
+          IFS=',' read -ra INPUT <<< "${{ inputs.tags }}"
+          for tag in "${INPUT[@]}";do
             echo "${REGISTRY}/${USER}/${REPO}:${tag}"
-            NEW_TAGS+="${REGISTRY}/${USER}/${REPO}:${tag},"
+            TAGS+="${REGISTRY}/${USER}/${REPO}:${tag},"
           done
-          NEW_TAGS="$(echo ${NEW_TAGS} | sed 's/,*$//g')"
-          echo "tags=${NEW_TAGS}" >> $GITHUB_OUTPUT
+          TAGS="$(echo ${TAGS} | sed 's/,*$//g')"
+          echo "tags=${TAGS}" >> $GITHUB_OUTPUT
 
       - name: "Testing 2"
         id: step2
