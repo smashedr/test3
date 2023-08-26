@@ -42,7 +42,7 @@ steps:
       - elif [ "$${DRONE_DEPLOY_TO}" = ralph ];then
       -   export ENV_NAMES='ralph'
       - else
-      -   export ENV_NAMES='dev,dev3'
+      -   export ENV_NAMES='dev dev3'
       - fi
       - echo "ENV_NAMES=$${ENV_NAMES}" >> ./.environment
       - export TRAEFIK_HOST=$(if [ "$${DRONE_DEPLOY_TO}" = prod ];then echo $${PROD_HOST};elif [ "$${DRONE_DEPLOY_TO}" = ralph ];then echo $${RALPH_HOST};else echo $${DEV_HOST};fi)
@@ -89,8 +89,7 @@ steps:
         from_secret: REGISTRY_PASS
     commands:
       - set -a; . ./.environment
-
-      - IFS=',' read -ra ARRAY <<< "$${ENV_NAMES}"
+      - read -ra ARRAY <<< "$${ENV_NAMES}"
       - for ENV_NAME in "$${ARRAY[@]}"; do
       -   export ENV_FILE="$${CONFIGS_DIR}/services/$${DRONE_REPO_OWNER}/$${DRONE_REPO_NAME}/$${ENV_NAME}/$${CONFIG_FILE}"
       -   set -a; . $${ENV_FILE}
