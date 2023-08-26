@@ -37,13 +37,12 @@ steps:
     commands:
       - echo DRONE_DEPLOY_TO $${DRONE_DEPLOY_TO}
       - echo DRONE_SOURCE_BRANCH $${DRONE_SOURCE_BRANCH\/\\/\/\-}
-      - if [ "$${DRONE_DEPLOY_TO}" = prod ];then
-      -   export ENV_NAMES='prod'
-      - elif [ "$${DRONE_DEPLOY_TO}" = ralph ];then
-      -   export ENV_NAMES='ralph'
+      - if [ -n "$${DRONE_DEPLOY_TO}" ];then
+      -   export ENV_NAMES=$${DRONE_DEPLOY_TO}
       - else
       -   export ENV_NAMES='dev,dev3'
       - fi
+      - echo ENV_NAMES $${ENV_NAMES}
       - echo "ENV_NAMES='$${ENV_NAMES}'" >> ./.environment
 #      - export TRAEFIK_HOST=$(if [ "$${DRONE_DEPLOY_TO}" = prod ];then echo $${PROD_HOST};elif [ "$${DRONE_DEPLOY_TO}" = ralph ];then echo $${RALPH_HOST};else echo $${DEV_HOST};fi)
 #      - echo "TRAEFIK_HOST='$${TRAEFIK_HOST}'" >> ./.environment
@@ -104,6 +103,7 @@ steps:
       -   echo ENV_NAME $${ENV_NAME}
       -   export ENV_FILE="$${CONFIGS_DIR}/services/$${DRONE_REPO_OWNER}/$${DRONE_REPO_NAME}/$${ENV_NAME}/$${CONFIG_FILE}"
       -   echo ENV_FILE $${ENV_FILE}
+      -   stat $${ENV_FILE}
       - done
 
 #      - echo DRONE_DEPLOY_TO $${DRONE_DEPLOY_TO}
