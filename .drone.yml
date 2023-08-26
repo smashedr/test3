@@ -70,12 +70,12 @@ steps:
       - echo "services/$${DRONE_REPO_OWNER}/$${DRONE_REPO_NAME}/$${ENV_NAME}/$${CONFIG_FILE}" >> .git/info/sparse-checkout
       - git pull origin master
 
-  - name: "Update Compose"
-    image: alpine
-    commands:
-      - set -a; . ./.environment
-      - sed -i "s/STACK_NAME/$${STACK_NAME}/g" $${COMPOSE_FILE}
-      - cat $${COMPOSE_FILE}
+#  - name: "Update Compose"
+#    image: alpine
+#    commands:
+#      - set -a; . ./.environment
+#      - sed -i "s/STACK_NAME/$${STACK_NAME}/g" $${COMPOSE_FILE}
+#      - cat $${COMPOSE_FILE}
 
   - name: "Build and Deploy"
     image: docker:dind
