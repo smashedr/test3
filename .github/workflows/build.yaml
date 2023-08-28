@@ -15,6 +15,23 @@ jobs:
       - name: "Checkout"
         uses: actions/checkout@v3
 
+      - name: "Update Manifest"
+        run: |
+          echo "${GITHUB_REF_NAME" > version.txt
+          git diff
+
+      - name: "Commit files"
+        run: |
+          git config --local user.email "no-reply@hosted-domains.com"
+          git config --local user.name "django-ci-bot"
+          git commit -a -m "Version ${GITHUB_REF_NAME}"
+
+      - name: "Push changes"
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: master
+
       - name: "Debug"
         run: |
           echo GITHUB_REF ${GITHUB_REF}
