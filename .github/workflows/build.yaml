@@ -34,6 +34,29 @@ jobs:
 #          git status
 #          git diff
 
+      - name: "Tags"
+        id: tags
+        run: |
+          echo "Input Tags: ${{ inputs.tags }}"
+          echo "Version (ref): ${GITHUB_REF_NAME}"
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ];then
+            TAGS=""
+            IFS=',' read -ra INPUT <<< "${{ inputs.tags }}"
+            for tag in "${INPUT[@]}";do
+              echo "${REGISTRY}/${USER}/${REPO}:${tag}"
+              TAGS+="${REGISTRY}/${USER}/${REPO}:${tag},"
+            done
+            TAGS="$(echo ${TAGS} | sed 's/,*$//g')"
+            echo "tags=${TAGS}" >> $GITHUB_OUTPUT
+            echo "Parsed Tags: ${TAGS}"
+          else
+            TAGS="${REGISTRY}/${USER}/${REPO}:latest,${REGISTRY}/${USER}/${REPO}:${GITHUB_REF_NAME}"
+            echo "tags=${TAGS}" >> $GITHUB_OUTPUT
+            echo "Parsed Tags: ${TAGS}"
+          fi
+          echo "APP_VERSION=${GITHUB_REF_NAME}" >> .env
+          echo "APP_VERSION: ${APP_VERSION}"
+
 #      - name: "Commit files"
 #        run: |
 #          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
