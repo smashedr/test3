@@ -27,7 +27,6 @@ services:
 #      - "80:80"
     networks:
       - traefik-public
-      - net-internal
 
 networks:
   traefik-public:
