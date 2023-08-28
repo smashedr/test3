@@ -20,5 +20,5 @@ jobs:
           user: ${{ secrets.DOCKER_USER }}
           pass: ${{ secrets.DOCKER_PASS }}
           port: ${{ secrets.DOCKER_PORT }}
-          name: "awesome-stack"
+          name: "django-files-test"
           file: "docker-compose-swarm.yaml"
