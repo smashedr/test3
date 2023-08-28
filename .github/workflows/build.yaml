@@ -21,8 +21,19 @@ jobs:
       - name: "Checkout"
         uses: actions/checkout@v3
 
+      - name: "Not Pre-Release"
+        if: ${{ !github.event.prerelease }}
+        run: |
+          echo "NOT - PRERELEASE"
+
+      - name: "Pre-Release"
+        if: ${{ github.event.prerelease }}
+        run: |
+          echo "YES - PRERELEASE"
+
       - name: "Update Manifest"
         run: |
+          echo "github.event.prerelease: ${{ github.event.prerelease }}"
           echo "github.event.release.prerelease: ${{ github.event.release.prerelease }}"
           echo "github.event: ${{ github.event }}"
           echo "github.event_name: ${{ github.event_name }}"
