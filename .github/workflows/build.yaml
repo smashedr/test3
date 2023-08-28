@@ -25,7 +25,9 @@ jobs:
         run: |
           echo "github.event: ${{ github.event }}"
           echo "github.event_name: ${{ github.event_name }}"
-          echo "github.event.action: ${{ github.event.action }}"
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ];then
+            echo "WORKFLOW DISPATCH EVENT HERE"
+          fi
           echo "inputs.tags: ${{ inputs.tags }}"
           echo "GITHUB_REF_NAME: ${GITHUB_REF_NAME}"
 #          echo "${GITHUB_REF_NAME}" > version.txt
