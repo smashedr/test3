@@ -1,7 +1,9 @@
 name: "Test Tag"
 
 on:
-  tags:
+  push:
+    tags:
+      - '**'
 
 jobs:
   tags:
