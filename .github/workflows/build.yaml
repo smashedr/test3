@@ -29,9 +29,6 @@ jobs:
           if [ "${{ github.event_name }}" = "workflow_dispatch" ];then
             echo "WORKFLOW DISPATCH EVENT HERE"
           fi
-          if [[ "${GITHUB_REF_NAME}" ~ "-" ]];then
-            echo "BETA RELEASE - NOT LATEST"
-          fi
           echo "inputs.tags: ${{ inputs.tags }}"
           echo "GITHUB_REF_NAME: ${GITHUB_REF_NAME}"
 #          echo "${GITHUB_REF_NAME}" > version.txt
