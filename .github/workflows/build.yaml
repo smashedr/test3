@@ -28,7 +28,7 @@ jobs:
           if [ "${{ github.event_name }}" = "workflow_dispatch" ];then
             echo "WORKFLOW DISPATCH EVENT HERE"
           fi
-          if [ "${GITHUB_REF_NAME}" ~ "-" ];then
+          if [[ "${GITHUB_REF_NAME}" ~ "-" ]];then
             echo "BETA RELEASE - NOT LATEST"
           fi
           echo "inputs.tags: ${{ inputs.tags }}"
