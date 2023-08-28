@@ -26,29 +26,29 @@ jobs:
         uses: actions/checkout@v3
 
       - name: "Not Pre-Release"
-        if: ${{ !github.event.release.prerelease }}
+        if: ${{ !github.event.release.prereleased }}
         run: |
           echo "NOT - PRERELEASE"
 
       - name: "Not Pre-Release 1"
-        if: ${{ !github.event.release.prerelease }}
+        if: ${{ !github.event.release.prereleased }}
         run: |
           echo "NOT - PRERELEASE"
 
       - name: "Pre-Release"
-        if: ${{ github.event.release.release.prerelease }}
+        if: ${{ github.event.release.release.prereleased }}
         run: |
           echo "YES - PRERELEASE"
 
       - name: "Pre-Release 2"
-        if: ${{ github.event.release.release.prerelease }}
+        if: ${{ github.event.release.release.prereleased }}
         run: |
           echo "YES - PRERELEASE"
 
       - name: "Update Manifest"
         run: |
-          echo "github.event.prerelease: ${{ github.event.prerelease }}"
-          echo "github.event.release.prerelease: ${{ github.event.release.prerelease }}"
+          echo "github.event.prerelease: ${{ github.event.prereleased }}"
+          echo "github.event.release.prerelease: ${{ github.event.release.prereleased }}"
           echo "github.event: ${{ github.event }}"
           echo "github.event_name: ${{ github.event_name }}"
           if [ "${{ github.event_name }}" = "workflow_dispatch" ];then
