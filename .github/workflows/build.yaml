@@ -36,12 +36,12 @@ jobs:
           echo "NOT - PRERELEASE"
 
       - name: "Pre-Release"
-        if: ${{ github.event.release.release.prerelease }}
+        if: ${{ github.event.release.prerelease }}
         run: |
           echo "YES - PRERELEASE"
 
       - name: "Pre-Release 2"
-        if: ${{ github.event.release.release.prerelease }}
+        if: ${{ github.event.release.prerelease }}
         run: |
           echo "YES - PRERELEASE"
 
