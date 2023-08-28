@@ -1,11 +1,11 @@
-name: "Test Docker Stack Deploy"
+name: "Test Tag"
 
 on:
-  push:
+  tags:
 
 jobs:
-  deploy:
-    name: "Deploy"
+  tags:
+    name: "Tags"
     runs-on: ubuntu-latest
     timeout-minutes: 5
 
@@ -13,12 +13,7 @@ jobs:
       - name: "Checkout"
         uses: actions/checkout@v3
 
-      - name: "Docker Stack Deploy"
-        uses: hosted-domains/stack-deploy-action@master
-        with:
-          host: ${{ secrets.DOCKER_HOST }}
-          user: ${{ secrets.DOCKER_USER }}
-          pass: ${{ secrets.DOCKER_PASS }}
-          port: ${{ secrets.DOCKER_PORT }}
-          name: "django-files-test"
-          file: "docker-compose-swarm.yaml"
+      - name: "Debug"
+        run: |
+          echo GITHUB_REF ${GITHUB_REF}
+          echo GITHUB_REF_NAME ${GITHUB_REF_NAME}
