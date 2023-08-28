@@ -18,6 +18,7 @@ jobs:
       - name: "Update Manifest"
         run: |
           echo "${GITHUB_REF_NAME}" > version.txt
+          git status
           git diff
 
       - name: "Commit files"
