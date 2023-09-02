@@ -47,7 +47,6 @@ jobs:
 
       - name: "Update Manifest"
         run: |
-          echo "github.event.prerelease: ${{ github.event.prerelease }}"
           echo "github.event.release.prerelease: ${{ github.event.release.prerelease }}"
           echo "github.event: ${{ github.event }}"
           echo "github.event_name: ${{ github.event_name }}"

@@ -1,0 +1,17 @@
+name: "Test Docker Stack Deploy"
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: "Test"
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: "Purge Cache"
+        uses: cssnr/cf-purge-cache-action@master
+        with:
+          zone: example.com
+          token: ${{ secrets.CLOUDFLARE_API_TOKEN }}
