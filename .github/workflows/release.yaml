@@ -1,4 +1,4 @@
-name: "Test Docker Stack Deploy"
+name: "Test Cloudflare Cache Purge"
 
 on:
   workflow_dispatch:
