@@ -13,5 +13,5 @@ jobs:
       - name: "Purge Cache"
         uses: cssnr/cf-purge-cache-action@master
         with:
-          zone: example.com
+          zone: cssnr.com
           token: ${{ secrets.CLOUDFLARE_API_TOKEN }}
