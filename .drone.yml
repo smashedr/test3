@@ -19,8 +19,7 @@ steps:
       CLOUDFLARE_TOKEN:
         from_secret: CLOUDFLARE_TOKEN
       ZONE_ID: "1791c3031779ad2f64bd8db828d795d8"
-    commands:
-      - >-
+    commands: |
         export headers="Authorization: Bearer $CLOUDFLARE_TOKEN"
         export url="https://api.cloudflare.com/client/v4/zones/$ZONE_ID/purge_cache"
         response=$(curl -X POST -H "$headers" -H "Content-Type: application/json" -d '{"purge_everything": true}' "$url")
