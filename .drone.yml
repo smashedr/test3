@@ -1,0 +1,26 @@
+---
+kind: pipeline
+name: "Test"
+
+platform:
+  arch: arm64
+
+trigger:
+  event:
+    - push
+
+environment:
+  ZONE_ID: "1791c3031779ad2f64bd8db828d795d8"
+
+steps:
+  - name: "Cloudflare Cache Purge"
+    image: alpine/curl
+    environment:
+      CLOUDFLARE_TOKEN:
+        from_secret: CLOUDFLARE_TOKEN
+      ZONE_ID: "1791c3031779ad2f64bd8db828d795d8"
+    commands:
+      - headers="Authorization: Bearer $CLOUDFLARE_TOKEN"
+      - url="https://api.cloudflare.com/client/v4/zones/$ZONE_ID/purge_cache"
+      - response=$(curl -X POST -H "$headers" -H "Content-Type: application/json" -d '{"purge_everything": true}' "$url")
+      - echo "$response"
