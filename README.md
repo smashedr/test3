@@ -2,6 +2,8 @@
 [![GitHub Release](https://img.shields.io/github/v/release/cssnr/link-extractor)](https://github.com/cssnr/link-extractor/releases/latest)
 # Link Extractor
 
+Extract Links from any page.
+
 ## Table of Contents
 
 *   [Overview](#overview)
@@ -30,8 +32,7 @@ The addon should now be installed and running in Chrome.
 > **Note**
 >
 > This **does not** work on Release Firefox!
-> You must use [ESR](https://www.mozilla.org/en-CA/firefox/all/#product-desktop-esr) (recommended),
-> Development, or Nightly.
+> You must use [ESR](https://www.mozilla.org/en-CA/firefox/all/#product-desktop-esr), Development, or Nightly.
 
 1.  Download (or clone) the repo: [link-extractor-master.zip](https://github.com/cssnr/link-extractor/archive/refs/heads/master.zip)
 1.  Open `about:config` search for `xpinstall.signatures.required` and set to `false`.
