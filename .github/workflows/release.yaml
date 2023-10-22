@@ -30,6 +30,7 @@ jobs:
 
       - name: "Debug"
         run: |
-          echo github.ref: ${{ github.ref }}
+          echo github.event_name: ${{ github.event_name }}
+          echo github.ref: ${{ github.ref_name }}
           echo steps.manifest.outputs.version: ${{ steps.manifest.outputs.version }}
           echo steps.manifest.outputs.name: ${{ steps.manifest.outputs.package_name }}
