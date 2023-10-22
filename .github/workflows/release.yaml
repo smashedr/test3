@@ -2,6 +2,8 @@ name: "Test Cloudflare Cache Purge"
 
 on:
   workflow_dispatch:
+  release:
+    types: [published]
 
 jobs:
   test:
@@ -23,13 +25,11 @@ jobs:
         id: manifest
         run: |
           echo "version=$(jq '.version' < src/manifest.json)" >> "$GITHUB_OUTPUT"
-          echo "name=$(jq '.name' < src/manifest.json)" >> "$GITHUB_OUTPUT"
-          export name2="$(jq '.name' < src/manifest.json | tr '[:upper:]' '[:lower:]')"
-          echo "${name2// /_}"
-          echo "name2=${name2// /_}" >> "$GITHUB_OUTPUT"
+          export name="$(jq '.name' < src/manifest.json | tr '[:upper:]' '[:lower:]')"
+          echo "package_name=${name// /_}" >> "$GITHUB_OUTPUT"
 
       - name: "Debug"
         run: |
+          echo github.ref: ${{ github.ref }}
           echo steps.manifest.outputs.version: ${{ steps.manifest.outputs.version }}
-          echo steps.manifest.outputs.name: ${{ steps.manifest.outputs.name }}
-          echo steps.manifest.outputs.name2: ${{ steps.manifest.outputs.name2 }}
+          echo steps.manifest.outputs.name: ${{ steps.manifest.outputs.package_name }}
