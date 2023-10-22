@@ -10,8 +10,23 @@ jobs:
     timeout-minutes: 5
 
     steps:
-      - name: "Purge Cache"
-        uses: cssnr/cf-purge-cache-action@master
-        with:
-          zone: cssnr.com
-          token: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+#      - name: "Purge Cache"
+#        uses: cssnr/cf-purge-cache-action@master
+#        with:
+#          zone: cssnr.com
+#          token: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+
+      - name: "Parse Manifest"
+        id: manifest
+        run: |
+          echo "version=$(jq '.version' < src/manifest.json)" >> "$GITHUB_OUTPUT"
+          echo "name=$(jq '.name' < src/manifest.json)" >> "$GITHUB_OUTPUT"
+          export name2="$(jq '.name' < src/manifest.json | tr '[:upper:]' '[:lower:]')"
+          echo "${name2// /_}"
+          echo "name2=${name2// /_}" >> "$GITHUB_OUTPUT"
+
+      - name: "Debug"
+        run: |
+          echo steps.manifest.outputs.version: ${{ steps.manifest.outputs.version }}
+          echo steps.manifest.outputs.name: ${{ steps.manifest.outputs.name }}
+          echo steps.manifest.outputs.name2: ${{ steps.manifest.outputs.name2 }}
