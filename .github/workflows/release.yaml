@@ -10,6 +10,9 @@ jobs:
     timeout-minutes: 5
 
     steps:
+      - name: "Checkout"
+        uses: actions/checkout@v3
+
 #      - name: "Purge Cache"
 #        uses: cssnr/cf-purge-cache-action@master
 #        with:
