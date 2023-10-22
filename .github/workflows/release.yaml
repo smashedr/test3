@@ -31,6 +31,20 @@ jobs:
       - name: "Debug"
         run: |
           echo github.event_name: ${{ github.event_name }}
-          echo github.ref: ${{ github.ref_name }}
+          echo github.ref: ${{ github.ref }}
+          echo github.ref: ${GITHUB_REF}
+          echo github.ref_name: ${{ github.ref_name }}
+          echo github.ref_name: ${GITHUB_REF_NAME}
           echo steps.manifest.outputs.version: ${{ steps.manifest.outputs.version }}
           echo steps.manifest.outputs.name: ${{ steps.manifest.outputs.package_name }}
+
+      - name: "Test"
+        run: |
+          if [ ${{ github.event_name }} = 'release' ] && [ ${{ github.ref }} != ${{ steps.manifest.outputs.version }} ];then
+            echo "Manifest Version ${{ steps.manifest.outputs.version }} does not match release tag ${{ github.ref }}"
+            exit 1
+          fi
+
+      - name: "Gotya"
+        run: |
+          echo waddup dawg
