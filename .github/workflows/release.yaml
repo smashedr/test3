@@ -41,7 +41,7 @@ jobs:
       - name: "Release Manifest Check"
         if: ${{ github.event_name == 'release' }}
         run: |
-          if [ ${{ github.ref_name }} != ${{ steps.manifest.outputs.version }} ];then
+          if [ "${{ github.ref_name }}" != ${{ steps.manifest.outputs.version }} ];then
             echo "Manifest Version ${{ steps.manifest.outputs.version }} does not match release tag ${{ github.ref_name }}"
             exit 1
           fi
