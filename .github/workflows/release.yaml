@@ -39,7 +39,7 @@ jobs:
           echo steps.manifest.outputs.name: ${{ steps.manifest.outputs.package_name }}
 
       - name: "Release Manifest Check"
-        if: ${{ github.event_name }} == 'release'
+        if: ${{ github.event_name == 'release' }}
         run: |
           if [ ${{ github.ref_name }} != ${{ steps.manifest.outputs.version }} ];then
             echo "Manifest Version ${{ steps.manifest.outputs.version }} does not match release tag ${{ github.ref_name }}"
