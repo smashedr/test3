@@ -1,0 +1,19 @@
+name: "Test JS Test"
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: "Test"
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v3
+
+      - name: "Test JS"
+        uses: smashedr/js-test-action@master
+        with:
+          who-to-greet: 'San Francisco Cocksucker'
