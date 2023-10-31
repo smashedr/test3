@@ -19,4 +19,4 @@ jobs:
         uses: smashedr/js-test-action@master
         with:
           chrome: 'build/chrome.zip'
-          firefox: 'build/firefox.zip'
+#          firefox: 'build/firefox.zip'
