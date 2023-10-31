@@ -2,6 +2,8 @@ name: "Test JS Test"
 
 on:
   workflow_dispatch:
+  release:
+    types: [published]
 
 jobs:
   test:
@@ -16,4 +18,5 @@ jobs:
       - name: "Test JS"
         uses: smashedr/js-test-action@master
         with:
-          who-to-greet: 'San Francisco Cocksucker'
+          chrome: 'build/chrome.zip'
+          firefox: 'build/firefox.zip'
