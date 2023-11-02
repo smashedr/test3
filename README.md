@@ -23,8 +23,11 @@ Easily extract links and/or domains from any site with an optional filter includ
 
 # Features
 
+<a href="https://microsoftedge.microsoft.com/addons/detail/link-extractor/nmndaimimedljcfgnnoahempcajdamej" target="_blank">
+    <img src="https://raw.githubusercontent.com/raivo-otp/issuer-icons/master/vectors/microsoft.com/microsoft-edge.svg" width="64" height="64" /></a>
+<a href="https://chrome.google.com/webstore/detail/link-extractor/ifefifghpkllfibejafbakmflidjcjfp" target="_blank">
+    <img src="https://raw.githubusercontent.com/raivo-otp/issuer-icons/master/vectors/google.com/google-chrome.svg" width="64" height="64" /></a>
 
-<img src="https://github.com/raivo-otp/issuer-icons/blob/master/vectors/microsoft.com/microsoft-edge.svg" width="150" height="150" />
 
 *   Extract all Links and/or Domains
 *   Copy all URLs or Domains to the clipboard
