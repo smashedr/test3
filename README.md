@@ -23,7 +23,8 @@ Easily extract links and/or domains from any site with an optional filter includ
 
 # Features
 
-![Lines of Code](https://github.com/raivo-otp/issuer-icons/blob/master/vectors/microsoft.com/microsoft-edge.svg =150x150)
+
+<img src="https://github.com/raivo-otp/issuer-icons/blob/master/vectors/microsoft.com/microsoft-edge.svg" width="150" height="150" />
 
 *   Extract all Links and/or Domains
 *   Copy all URLs or Domains to the clipboard
