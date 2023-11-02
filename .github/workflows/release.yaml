@@ -21,28 +21,29 @@ jobs:
 #          zone: cssnr.com
 #          token: ${{ secrets.CLOUDFLARE_API_TOKEN }}
 
-      - name: "Parse Manifest"
-        id: manifest
-        run: |
-          echo "version=$(jq '.version' < src/manifest.json)" >> "$GITHUB_OUTPUT"
-          export name="$(jq '.name' < src/manifest.json | tr '[:upper:]' '[:lower:]')"
-          echo "package_name=${name// /_}" >> "$GITHUB_OUTPUT"
+#      - name: "Parse Manifest"
+#        id: manifest
+#        run: |
+#          echo "version=$(jq '.version' < src/manifest.json)" >> "$GITHUB_OUTPUT"
+#          export name="$(jq '.name' < src/manifest.json | tr '[:upper:]' '[:lower:]')"
+#          echo "package_name=${name// /_}" >> "$GITHUB_OUTPUT"
 
-      - name: "Debug"
-        run: |
-          echo github.event_name: ${{ github.event_name }}
-          echo github.ref: ${{ github.ref }}
-          echo github.ref: ${GITHUB_REF}
-          echo github.ref_name: ${{ github.ref_name }}
-          echo github.ref_name: ${GITHUB_REF_NAME}
-          echo steps.manifest.outputs.version: ${{ steps.manifest.outputs.version }}
-          echo steps.manifest.outputs.name: ${{ steps.manifest.outputs.package_name }}
+#      - name: "Debug"
+#        run: |
+#          echo github.event_name: ${{ github.event_name }}
+#          echo github.ref: ${{ github.ref }}
+#          echo github.ref: ${GITHUB_REF}
+#          echo github.ref_name: ${{ github.ref_name }}
+#          echo github.ref_name: ${GITHUB_REF_NAME}
+#          echo steps.manifest.outputs.version: ${{ steps.manifest.outputs.version }}
+#          echo steps.manifest.outputs.name: ${{ steps.manifest.outputs.package_name }}
 
       - name: "Release Manifest Check"
         if: ${{ github.event_name == 'release' }}
         run: |
-          if [ "${{ github.ref_name }}" != ${{ steps.manifest.outputs.version }} ];then
-            echo "Manifest Version ${{ steps.manifest.outputs.version }} does not match release tag ${{ github.ref_name }}"
+          export version="$(jq '.version' < manifest.json | tr -d '"')"
+          if [ "${{ github.ref_name }}" != "${version}" ];then
+            echo "Manifest Version ${version} does not match release tag ${{ github.ref_name }}"
             exit 1
           fi
 
