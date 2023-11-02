@@ -23,6 +23,8 @@ Easily extract links and/or domains from any site with an optional filter includ
 
 # Features
 
+[![](https://github.com/raivo-otp/issuer-icons/blob/master/vectors/microsoft.com/microsoft-edge.svg)
+
 *   Extract all Links and/or Domains
 *   Copy all URLs or Domains to the clipboard
 *   Quick Filter URLs with a regular expression
