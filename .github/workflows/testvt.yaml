@@ -1,4 +1,4 @@
-name: "Test JS Test"
+name: "Test VT"
 
 on:
   workflow_dispatch:
