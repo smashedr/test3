@@ -19,3 +19,4 @@ jobs:
         uses: smashedr/virustotal-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
+          test_input: "winning"
