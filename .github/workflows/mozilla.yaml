@@ -1,0 +1,25 @@
+name: "Test Mozilla Update"
+
+on:
+  workflow_dispatch:
+  release:
+    types: [published]
+
+jobs:
+  test:
+    name: "Test"
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v3
+
+      - name: "Mozilla Addon Update"
+        uses: cssnr/mozilla-addon-update-action@updates
+        with:
+          url: "https://github.com/cssnr/link-extractor/releases/download/{version}/link_extractor-firefox.xpi"
+          update: update.json
+          manifest: manifest.json
+          version: "1.0.0"
+          addon_id: link-extractor@cssnr.com
