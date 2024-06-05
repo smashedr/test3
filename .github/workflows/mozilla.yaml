@@ -21,3 +21,4 @@ jobs:
           url: "https://github.com/cssnr/link-extractor/releases/download/{version}/link_extractor-firefox.xpi"
           update: update.json
           manifest: manifest.json
+          addon_id: link-extractor@cssnr.com
