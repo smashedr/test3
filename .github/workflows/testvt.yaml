@@ -9,7 +9,7 @@ jobs:
   test:
     name: "Test"
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 5
 
     steps:
       - name: "Checkout"
@@ -21,4 +21,3 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           vt_api_key: ${{ secrets.VT_API_KEY }}
           update_release: true
-          rate_limit: 2
