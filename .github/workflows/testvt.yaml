@@ -16,8 +16,9 @@ jobs:
         uses: actions/checkout@v3
 
       - name: "VirusTotal"
-        uses: smashedr/virustotal-action@master
+        uses: cssnr/virustotal-action@limiter
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           vt_api_key: ${{ secrets.VT_API_KEY }}
           update_release: true
+          rate_limit: 1
