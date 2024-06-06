@@ -4,6 +4,9 @@ on:
   workflow_dispatch:
   release:
     types: [published]
+  push:
+    tags:
+      - "*"
 
 jobs:
   test:
@@ -12,8 +15,8 @@ jobs:
     timeout-minutes: 5
 
     steps:
-#      - name: "Checkout"
-#        uses: actions/checkout@v4
+      #      - name: "Checkout"
+      #        uses: actions/checkout@v4
 
       - name: "Update Tags"
         uses: smashedr/update-tags-action@master
