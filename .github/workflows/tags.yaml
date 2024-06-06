@@ -1,0 +1,22 @@
+name: "Test Tags"
+
+on:
+  workflow_dispatch:
+  release:
+    types: [published]
+
+jobs:
+  test:
+    name: "Test"
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v4
+
+      - name: "Update Tags"
+        uses: smashedr/update-tags-action@v1
+        with:
+          major: true
+          minor: true
