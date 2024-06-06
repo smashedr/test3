@@ -16,7 +16,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: "Update Tags"
-        uses: smashedr/update-tags-action@v1
+        uses: smashedr/update-tags-action@master
         with:
           major: true
           minor: true
