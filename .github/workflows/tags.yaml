@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   release:
     types: [published]
-  push:
+#  push:
 #    tags:
 #      - "*"
 
@@ -19,11 +19,11 @@ jobs:
       #        uses: actions/checkout@v4
 
       - name: "Update Tags"
-        uses: smashedr/update-tags-action@master
+        uses: cssnr/update-tags-action@updates
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           major: true
           minor: true
-          tags: |
-            "1"
-            "1.1"
+#          tags: |
+#            "1"
+#            "1.1"
