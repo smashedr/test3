@@ -5,8 +5,8 @@ on:
   release:
     types: [published]
   push:
-    tags:
-      - "*"
+#    tags:
+#      - "*"
 
 jobs:
   test:
