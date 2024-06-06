@@ -24,6 +24,6 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           major: true
           minor: true
-          tags: |
-            "v1"
-            "v1.1"
+#          tags: |
+#            "v1"
+#            "v1.1"
