@@ -26,4 +26,4 @@ jobs:
           minor: true
           tags: |
             "1"
-            "v.1"
+            "1.1"
