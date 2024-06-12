@@ -1,0 +1,58 @@
+name: "Build"
+
+on:
+  workflow_dispatch:
+  release:
+    types: [published]
+
+jobs:
+  windows:
+    name: "Windows"
+    runs-on: windows-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v4
+
+      - name: "Write Version"
+        if: ${{ github.event_name == 'release' }}
+        run: |
+          Write-Output "GITHUB_REF_NAME: $env:GITHUB_REF_NAME"
+          Get-Content src/version.txt
+          $env:TEST | Set-Content src\version.txt
+          Get-Content src/version.txt
+
+  linux:
+    name: "Linux"
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v4
+
+      - name: "Write Version"
+        if: ${{ github.event_name == 'release' }}
+        run: |
+          echo GITHUB_REF_NAME: $GITHUB_REF_NAME
+          cat src/version.txt
+          echo $GITHUB_REF_NAME > src\version.txt
+          cat src/version.txt
+
+  macos:
+    name: "macOS"
+    runs-on: macos-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v4
+
+      - name: "Write Version"
+        if: ${{ github.event_name == 'release' }}
+        run: |
+          echo GITHUB_REF_NAME: $GITHUB_REF_NAME
+          cat src/version.txt
+          echo $GITHUB_REF_NAME > src\version.txt
+          cat src/version.txt
