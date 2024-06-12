@@ -1,0 +1,39 @@
+name: "JS Test"
+
+on:
+  push:
+  workflow_dispatch:
+  release:
+    types: [published]
+
+jobs:
+  test:
+    name: "Test"
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v4
+
+      #- name: "JS"
+      #  #uses: smashedr/javascript-action@master
+      #  uses: ./.github/update-json-value
+      #  with:
+      #    file: src/manifest.json
+      - name: "Write Version"
+        if: ${{ github.event_name == 'release' }}
+        env:
+          TAG_NAME: ${{ github.event.release.tag_name }}
+        run: |
+          echo "${GITHUB_REF_NAME}" > src/version.txt
+          echo ${TAG_NAME} > src/version.txt
+
+      - name: "Debug"
+        env:
+          TAG_NAME: ${{ github.event.release.tag_name }}
+        run: |
+          echo TAG_NAME: ${TAG_NAME}
+          echo GITHUB_REF_NAME: ${GITHUB_REF_NAME}
+          echo GITHUB_REF_NAME: $GITHUB_REF_NAME
+          cat src/version.txt
