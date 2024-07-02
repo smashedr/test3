@@ -48,7 +48,9 @@ jobs:
           flavor: |
             latest=false
           tags: |
-            type=ref,event=tag,value=${{ github.ref }}
+            type=ref,event=push
+            type=ref,event=pr
+            type=ref,event=tag
             type=raw,value=latest,enable=${{ env.latest }}
 
       - name: 'Debug'
