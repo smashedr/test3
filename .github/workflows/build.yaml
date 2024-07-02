@@ -46,6 +46,8 @@ jobs:
         uses: docker/metadata-action@v5
         with:
           images: ${{ matrix.image }}
+          tags: |
+            type=raw,value=latest,enable=${{ ! github.event.release.prerelease }}
 
       - name: 'Debug'
         run: |
