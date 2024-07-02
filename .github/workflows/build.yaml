@@ -1,58 +1,65 @@
-name: "Build"
+name: Build
 
 on:
-  workflow_dispatch:
   release:
     types: [published]
 
+env:
+  REGISTRY: ghcr.io
+  USER: ${{ github.repository_owner }}
+  REPO: ${{ github.repository }}
+
 jobs:
-  windows:
-    name: "Windows"
-    runs-on: windows-latest
-    timeout-minutes: 5
-
-    steps:
-      - name: "Checkout"
-        uses: actions/checkout@v4
-
-      - name: "Write Version"
-        if: ${{ github.event_name == 'release' }}
-        run: |
-          Write-Output "GITHUB_REF_NAME: $env:GITHUB_REF_NAME"
-          Get-Content src/version.txt
-          $env:GITHUB_REF_NAME | Set-Content src\version.txt
-          Get-Content src/version.txt
-
-  linux:
-    name: "Linux"
+  build:
+    name: 'Build'
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - dockerfile: ./nginx/Dockerfile
+            image: ${{ env.REGISTRY }}/${{ env.USER }}/${{ env.REPO }}-nginx
+          - dockerfile: ./app/Dockerfile
+            image: ${{ env.REGISTRY }}/${{ env.USER }}/${{ env.REPO }}-app
+    permissions:
+      contents: read
+      packages: write
 
     steps:
-      - name: "Checkout"
+      - name: 'Checkout'
         uses: actions/checkout@v4
 
-      - name: "Write Version"
-        if: ${{ github.event_name == 'release' }}
+      #      - name: 'Docker Login'
+      #        uses: docker/login-action@v2
+      #        with:
+      #          registry: ${{ env.REGISTRY }}
+      #          username: ${{ secrets.GHCR_USER }}
+      #          password: ${{ secrets.GHCR_PASS }}
+
+      #      - name: 'Setup Buildx'
+      #        uses: docker/setup-buildx-action@v2
+      #        with:
+      #          platforms: linux/amd64,linux/arm64
+
+      - name: 'Docker Metadata'
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ matrix.image }}
+
+      - name: 'Debug'
         run: |
-          echo GITHUB_REF_NAME: $GITHUB_REF_NAME
-          cat src/version.txt
-          echo "$GITHUB_REF_NAME" > src/version.txt
-          cat src/version.txt
+          echo "file: ${{ matrix.dockerfile }}"
+          echo "tags: ${{ matrix.dockerfile }}"
+          echo "labels: ${{ matrix.dockerfile }}"
 
-  macos:
-    name: "macOS"
-    runs-on: macos-latest
-    timeout-minutes: 5
-
-    steps:
-      - name: "Checkout"
-        uses: actions/checkout@v4
-
-      - name: "Write Version"
-        if: ${{ github.event_name == 'release' }}
-        run: |
-          echo GITHUB_REF_NAME: $GITHUB_REF_NAME
-          cat src/version.txt
-          echo "$GITHUB_REF_NAME" > src/version.txt
-          cat src/version.txt
+#      - name: 'Build and Push'
+#        uses: docker/build-push-action@v4
+#        with:
+#          context: .
+#          platforms: linux/amd64,linux/arm64
+#          push: true
+#          file: ${{ matrix.dockerfile }}
+#          tags: ${{ steps.meta.outputs.tags }}
+#          labels: ${{ steps.meta.outputs.labels }}
