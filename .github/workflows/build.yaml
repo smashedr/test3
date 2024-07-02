@@ -46,6 +46,8 @@ jobs:
         uses: docker/metadata-action@v5
         with:
           images: ${{ matrix.image }}
+          flavor: |
+            latest=false
           tags: |
             type=ref,event=tag,value=${{ github.ref }}
             type=raw,value=latest,enable=${{ ! github.event.release.prerelease  }}
@@ -66,9 +68,7 @@ jobs:
         uses: smashedr/js-test-action@master
         id: tags
         with:
-          images: |
-            my-image-1
-            my-image-2
+          images: ${{ matrix.image }}
 
       - name: 'Debug 2'
         run: |
