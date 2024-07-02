@@ -17,8 +17,8 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - dockerfile: ./nginx/Dockerfile
-            image: ghcr.io/${{ github.repository }}-nginx
+          #          - dockerfile: ./nginx/Dockerfile
+          #            image: ghcr.io/${{ github.repository }}-nginx
           - dockerfile: ./app/Dockerfile
             image: ghcr.io/${{ github.repository }}-app
     permissions:
@@ -41,24 +41,38 @@ jobs:
       #        with:
       #          platforms: linux/amd64,linux/arm64
 
-      - name: 'Docker Metadata'
-        id: meta
-        uses: docker/metadata-action@v5
-        with:
-          images: ${{ matrix.image }}
-          tags: |
-            type=ref,event=tag,value=${{ github.ref }}
-            type=raw,value=latest,enable=${{ ! github.event.release.prerelease  }}
+      #      - name: 'Docker Metadata'
+      #        id: meta
+      #        uses: docker/metadata-action@v5
+      #        with:
+      #          images: ${{ matrix.image }}
+      #          tags: |
+      #            type=ref,event=tag,value=${{ github.ref }}
+      #            type=raw,value=latest,enable=${{ ! github.event.release.prerelease  }}
 
-      - name: 'Debug'
+      - name: 'Debug 1'
         run: |
           echo "file: ${{ matrix.dockerfile }}"
-          echo "prerelease: ${{ github.event.release.prerelease }}"
-          echo "prerelease bool1: ${{ ! github.event.release.prerelease }}"
-          echo "prerelease bool2: ${{ github.event.release.prerelease == 'false' }}"
-          echo "prerelease bool3: ${{ github.event.release.prerelease != 'true' }}"
-          echo "tags: ${{ steps.meta.outputs.tags }}"
-          echo "labels: ${{ steps.meta.outputs.labels }}"
+          echo "image: ${{ matrix.image }}"
+
+      #      - name: 'JS'
+      #        #uses: smashedr/javascript-action@master
+      #        uses: ./.github/update-json-value
+      #        with:
+      #          file: src/manifest.json
+
+      - name: 'Docker Tags'
+        #        uses: ./.github/docker-tags
+        uses: smashedr/js-test-action@master
+        id: tags
+        with:
+          image: my-image
+
+      - name: 'Debug 2'
+        run: |
+          echo "file: ${{ matrix.dockerfile }}"
+          echo "image: ${{ matrix.image }}"
+          echo "tags: ${{ steps.tags.outputs.tags }}"
 
 #      - name: 'Build and Push'
 #        uses: docker/build-push-action@v4

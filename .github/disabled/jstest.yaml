@@ -1,4 +1,4 @@
-name: "JS Test"
+name: 'JS Test'
 
 on:
   push:
@@ -8,28 +8,29 @@ on:
 
 jobs:
   test:
-    name: "Test"
+    name: 'Test'
     runs-on: ubuntu-latest
     timeout-minutes: 5
 
     steps:
-      - name: "Checkout"
+      - name: 'Checkout'
         uses: actions/checkout@v4
 
-      #- name: "JS"
-      #  #uses: smashedr/javascript-action@master
-      #  uses: ./.github/update-json-value
-      #  with:
-      #    file: src/manifest.json
-      - name: "Write Version"
-        if: ${{ github.event_name == 'release' }}
-        env:
-          TAG_NAME: ${{ github.event.release.tag_name }}
-        run: |
-          echo "${GITHUB_REF_NAME}" > src/version.txt
-          echo ${TAG_NAME} > src/version.txt
+      - name: 'JS'
+        #uses: smashedr/javascript-action@master
+        uses: ./.github/update-json-value
+        with:
+          file: src/manifest.json
 
-      - name: "Debug"
+      #      - name: "Write Version"
+      #        if: ${{ github.event_name == 'release' }}
+      #        env:
+      #          TAG_NAME: ${{ github.event.release.tag_name }}
+      #        run: |
+      #          echo "${GITHUB_REF_NAME}" > src/version.txt
+      #          echo ${TAG_NAME} > src/version.txt
+
+      - name: 'Debug'
         env:
           TAG_NAME: ${{ github.event.release.tag_name }}
         run: |

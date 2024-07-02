@@ -1,0 +1,18 @@
+{
+  "ref": "refs/tags/this-is-a-tag",
+  "ref_name": "this-is-a-tag",
+  "pull_request": {
+    "head": {
+      "ref": "master"
+    },
+    "base": {
+      "ref": "test"
+    }
+  },
+  "release": {
+    "head": {
+      "ref": "master"
+    }
+  },
+  "actor": "smashedr"
+}
