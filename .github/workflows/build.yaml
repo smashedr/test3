@@ -41,14 +41,14 @@ jobs:
       #        with:
       #          platforms: linux/amd64,linux/arm64
 
-      #      - name: 'Docker Metadata'
-      #        id: meta
-      #        uses: docker/metadata-action@v5
-      #        with:
-      #          images: ${{ matrix.image }}
-      #          tags: |
-      #            type=ref,event=tag,value=${{ github.ref }}
-      #            type=raw,value=latest,enable=${{ ! github.event.release.prerelease  }}
+      - name: 'Docker Metadata'
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ matrix.image }}
+          tags: |
+            type=ref,event=tag,value=${{ github.ref }}
+            type=raw,value=latest,enable=${{ ! github.event.release.prerelease  }}
 
       - name: 'Debug 1'
         run: |
@@ -75,6 +75,7 @@ jobs:
           echo "file: ${{ matrix.dockerfile }}"
           echo "image: ${{ matrix.image }}"
           echo "tags: ${{ steps.tags.outputs.tags }}"
+          echo "meta: ${{ steps.meta.outputs.tags }}"
 
 #      - name: 'Build and Push'
 #        uses: docker/build-push-action@v4
