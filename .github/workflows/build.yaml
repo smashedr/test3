@@ -47,6 +47,8 @@ jobs:
         with:
           images: ${{ matrix.image }}
           tags: |
+            type=ref,event=tag
+            type=ref,event=tag,value=${{ github.ref }}
             type=raw,value=latest,enable=${{ ! github.event.release.prerelease }}
 
       - name: 'Debug'
