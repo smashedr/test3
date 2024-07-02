@@ -41,13 +41,15 @@ jobs:
       - name: 'Docker Metadata'
         id: meta
         uses: docker/metadata-action@v5
+        env:
+          latest: ${{ ! github.event.release.prerelease && github.event_name == 'release' }}
         with:
           images: ${{ matrix.image }}
           flavor: |
             latest=false
           tags: |
             type=ref,event=tag,value=${{ github.ref }}
-            type=raw,value=latest,enable=${{ ! github.event.release.prerelease  }}
+            type=raw,value=latest,enable=${{ env.latest }}
 
       - name: 'Debug'
         run: |
