@@ -1,0 +1,26 @@
+name: "Cloudflare"
+
+on:
+  push:
+  workflow_dispatch:
+  release:
+    types: [published]
+
+jobs:
+  cf:
+    name: "Cache Purge"
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      DOCKER_BUILDKIT: 1
+
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v4
+
+      - name: "Cloudflare Cache Purge"
+        uses: ./.github/cf-purge-cache
+        with:
+          token: ""
+          domains: |
+            cssnr.com
