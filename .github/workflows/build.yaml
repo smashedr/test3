@@ -17,8 +17,8 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          #          - dockerfile: ./nginx/Dockerfile
-          #            image: ghcr.io/${{ github.repository }}-nginx
+          - dockerfile: ./nginx/Dockerfile
+            image: ghcr.io/${{ github.repository }}-nginx
           - dockerfile: ./app/Dockerfile
             image: ghcr.io/${{ github.repository }}-app
     permissions:
@@ -66,7 +66,9 @@ jobs:
         uses: smashedr/js-test-action@master
         id: tags
         with:
-          images: my-image
+          images: |
+            my-image-1
+            my-image-2
 
       - name: 'Debug 2'
         run: |
