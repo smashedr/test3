@@ -7,7 +7,6 @@ on:
 env:
   REGISTRY: ghcr.io
   USER: ${{ github.repository_owner }}
-  REPO: ${{ github.repository }}
 
 jobs:
   build:
@@ -19,9 +18,9 @@ jobs:
       matrix:
         include:
           - dockerfile: ./nginx/Dockerfile
-            image: ${{ env.REGISTRY }}/${{ env.USER }}/${{ env.REPO }}-nginx
+            image: ghcr.io/${{ github.repository }}-nginx
           - dockerfile: ./app/Dockerfile
-            image: ${{ env.REGISTRY }}/${{ env.USER }}/${{ env.REPO }}-app
+            image: ghcr.io/${{ github.repository }}-app
     permissions:
       contents: read
       packages: write
@@ -51,8 +50,8 @@ jobs:
       - name: 'Debug'
         run: |
           echo "file: ${{ matrix.dockerfile }}"
-          echo "tags: ${{ matrix.dockerfile }}"
-          echo "labels: ${{ matrix.dockerfile }}"
+          echo "tags: ${{ steps.meta.outputs.tags }}"
+          echo "labels: ${{ steps.meta.outputs.labels }}"
 
 #      - name: 'Build and Push'
 #        uses: docker/build-push-action@v4
