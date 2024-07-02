@@ -48,13 +48,15 @@ jobs:
           images: ${{ matrix.image }}
           tags: |
             type=ref,event=tag,value=${{ github.ref }}
-            type=raw,value=latest,enable=${{ github.event.release.prerelease != 'true' }}
+            type=raw,value=latest,enable=${{ ! github.event.release.prerelease  }}
 
       - name: 'Debug'
         run: |
           echo "file: ${{ matrix.dockerfile }}"
           echo "prerelease: ${{ github.event.release.prerelease }}"
-          echo "prerelease bool: ${{ github.event.release.prerelease != 'true' }}"
+          echo "prerelease bool1: ${{ ! github.event.release.prerelease }}"
+          echo "prerelease bool2: ${{ github.event.release.prerelease == 'false' }}"
+          echo "prerelease bool3: ${{ github.event.release.prerelease != 'true' }}"
           echo "tags: ${{ steps.meta.outputs.tags }}"
           echo "labels: ${{ steps.meta.outputs.labels }}"
 
