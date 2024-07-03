@@ -1,0 +1,68 @@
+name: "⚠️ Report an Issue"
+description: "Something Not Working Right? Please let us know..."
+title: "[Bug] "
+
+labels: ["bug"]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        All bugs we can reproduce will be fixed. Thank you for taking the time to make this report!
+
+  - type: textarea
+    id: description
+    validations:
+      required: true
+    attributes:
+      label: Details
+      description: What went wrong?
+      placeholder: Tell us what you see!
+
+  - type: input
+    id: website
+    validations:
+      required: false
+    attributes:
+      label: Website Link
+      description: If you are having an issue with a specific site, please provide a link.
+      placeholder: https://example.com/
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Paste Support Information
+      description: Open the Extension Options, Scroll to the Bottom, Click Copy Support Information and paste it here.
+      render: shell
+#
+#  - type: dropdown
+#    id: version
+#    validations:
+#      required: true
+#    attributes:
+#      label: Version
+#      description: What version of our software are you running?
+#      options:
+#        - 1.0.2 (Default)
+#        - 1.0.3 (Edge)
+#      default: 0
+#
+#  - type: dropdown
+#    id: browsers
+#    attributes:
+#      label: What browsers are you seeing the problem on?
+#      multiple: true
+#      options:
+#        - Firefox
+#        - Chrome
+#        - Safari
+#        - Microsoft Edge
+#
+#  - type: checkboxes
+#    id: terms
+#    attributes:
+#      label: Code of Conduct
+#      description: By submitting this issue, you agree to follow our [Code of Conduct](https://example.com).
+#      options:
+#        - label: I agree to follow this project's Code of Conduct
+#          required: true
