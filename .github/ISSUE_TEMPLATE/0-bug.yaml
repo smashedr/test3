@@ -36,6 +36,7 @@ body:
     attributes:
       label: Paste Support Information
       description: Open the Extension Options, Scroll to the Bottom, Click Copy Support Information and Paste Below.
+      render: shell
 #
 #  - type: dropdown
 #    id: version
