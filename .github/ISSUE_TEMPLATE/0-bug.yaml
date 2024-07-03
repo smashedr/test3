@@ -35,7 +35,7 @@ body:
       required: true
     attributes:
       label: Paste Support Information
-      description: Open the extension options, scroll to the bottom, click Copy Support Information and paste below.
+      description: Open the extension options, scroll to the bottom, click `Copy Support Information` and paste below.
       render: shell
 #
 #  - type: dropdown
