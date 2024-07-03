@@ -1,7 +1,7 @@
-name: "⚠️ Report an Issue"
-description: "Something Not Working Right? Please let us know..."
+name: "💬 Ask a Question"
+description: "Ask a General Question about Usage or Options."
 title: "[Bug] "
-labels: ["bug"]
+labels: ["question"]
 assignees:
   - smashedr
 
@@ -9,7 +9,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        All bugs that we can verify will be fixed. Thank you for taking the time to make this report!
+        All bugs we can reproduce will be fixed. Thank you for taking the time to make this report!
 
   - type: input
     id: website
@@ -26,13 +26,11 @@ body:
       required: true
     attributes:
       label: Details
-      description: Please Describe the Issue you are Experiencing.
+      description: Please Describe the Issue.
       placeholder: Provide as many details as you can...
 
   - type: textarea
     id: logs
-    validations:
-      required: true
     attributes:
       label: Paste Support Information
       description: Open the Extension Options, Scroll to the Bottom, Click Copy Support Information and Paste Below.
