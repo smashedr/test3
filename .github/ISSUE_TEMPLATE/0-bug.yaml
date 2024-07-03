@@ -17,7 +17,7 @@ body:
       required: false
     attributes:
       label: Site Link
-      description: Please provide a link to the site you are having issues on if possible.
+      description: Please provide a **link** to the site you are having issues on if possible.
       placeholder: https://example.com/
 
   - type: textarea
@@ -26,7 +26,7 @@ body:
       required: true
     attributes:
       label: Details
-      description: Please describe the issue you are experiencing and how to reproduce.
+      description: Please describe the issue you are experiencing and **how to reproduce** if possible.
       placeholder: Provide as many details as you can...
 
   - type: textarea
