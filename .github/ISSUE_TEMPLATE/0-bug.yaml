@@ -10,29 +10,29 @@ body:
       value: |
         All bugs we can reproduce will be fixed. Thank you for taking the time to make this report!
 
+  - type: input
+    id: website
+    validations:
+      required: false
+    attributes:
+      label: Site Link
+      description: Please provide a link to the site you are having issues on if possible.
+      placeholder: https://example.com/
+
   - type: textarea
     id: description
     validations:
       required: true
     attributes:
       label: Details
-      description: What went wrong?
-      placeholder: Tell us what you see!
-
-  - type: input
-    id: website
-    validations:
-      required: false
-    attributes:
-      label: Website Link
-      description: If you are having an issue with a specific site, please provide a link.
-      placeholder: https://example.com/
+      description: Please Describe the Issue.
+      placeholder: Provide as many details as you can...
 
   - type: textarea
     id: logs
     attributes:
       label: Paste Support Information
-      description: Open the Extension Options, Scroll to the Bottom, Click Copy Support Information and paste it here.
+      description: Open the Extension Options, Scroll to the Bottom, Click Copy Support Information and Paste Below.
       render: shell
 #
 #  - type: dropdown

@@ -3,6 +3,9 @@ contact_links:
   - name: Join the Discord Server
     about: Chat with us about Issues, Features, Questions and More...
     url: https://discord.gg/wXy6m2X8wY
+  - name: Submit Feedback
+    about: Send General Feedback Anonymously.
+    url: https://cssnr.github.io/feedback
   - name: View More Apps
-    about: Contact us for all your consulting $ needs!
+    about: View Additional Apps we have Created.
     url: https://cssnr.github.io/
