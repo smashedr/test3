@@ -38,9 +38,12 @@ jobs:
       #          echo 'Site Link: ${{ fromJson(steps.parse.outputs.payload)["Site Link"] }}'
       #          echo 'Details: ${{ fromJson(steps.parse.outputs.payload)["Details"] }}'
 
-      #      - name: "Debug 2"
-      #        run: |
-      #          echo "Name: ${{ fromJson(steps.parse.outputs.payload)["Name"] }}"
+      - name: "Debug 2"
+        env:
+          json: ${{ fromJSON(steps.parse.outputs.payload) }}
+        run: |
+          echo "Name: ${{ json.Name }}"
+          echo "Name: ${{ fromJSON(steps.parse.outputs.payload)["Name"] }}"
 
       - name: "Add Comment"
         run: gh issue comment "$NUMBER" --body "$BODY"

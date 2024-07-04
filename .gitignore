@@ -14,3 +14,4 @@ node_modules/
 web-ext-artifacts/
 tests/screenshots/
 src/manifest.json
+package-lock.json
