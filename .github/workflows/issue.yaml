@@ -1,0 +1,62 @@
+name: "Issue"
+
+on:
+  issues:
+    types:
+      - opened
+
+jobs:
+  issue:
+    name: "Issue"
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v4
+
+      - name: "Setup Node"
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: "Debug"
+        run: |
+          echo "Issue number: ${{ github.event.issue.number }}"
+          echo "Issue title: ${{ github.event.issue.title }}"
+          echo "Issue body: ${{ github.event.issue.body }}"
+
+      - name: "Add Comment"
+        run: gh issue comment "$NUMBER" --body "$BODY"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+          NUMBER: ${{ github.event.issue.number }}
+          BODY: >
+            This issue is available for anyone to work on.
+            **Make sure to reference this issue in your pull request.**
+            :sparkles: Thank you for your contribution! :sparkles:
+
+#      - name: "Install"
+#        run: |
+#          npm install
+#
+#      - name: "Lint"
+#        run: |
+#          npm run lint
+#
+#      - name: "Test"
+#        run: |
+#          npm run test
+#
+#      - name: "Push Artifacts"
+#        uses: cssnr/push-artifacts-action@master
+#        with:
+#          path: "tests/screenshots/"
+#          host: ${{ secrets.RSYNC_HOST }}
+#          user: ${{ secrets.RSYNC_USER }}
+#          pass: ${{ secrets.RSYNC_PASS }}
+#          port: ${{ secrets.RSYNC_PORT }}
+#          base: "/static"
+#          webhost: "https://artifacts.hosted-domains.com"
+#          webhook: ${{ secrets.DISCORD_WEBHOOK }}
