@@ -35,14 +35,12 @@ jobs:
       - name: Show parsed payload data
         run: |
           echo '${{ steps.parse.outputs.payload }}'
-          echo 'Site Link: ${{ fromJson(steps.parse.outputs.payload)["Site Link"] }}'
-          echo 'Details: ${{ fromJson(steps.parse.outputs.payload)["Details"] }}'
+      #          echo 'Site Link: ${{ fromJson(steps.parse.outputs.payload)["Site Link"] }}'
+      #          echo 'Details: ${{ fromJson(steps.parse.outputs.payload)["Details"] }}'
 
-      - name: "Debug 2"
-        run: |
-          echo "Issue number: ${{ fromJson(steps.parse.outputs.payload)["Name"] }}"
-          echo "Issue title: ${{ github.event.issue.title }}"
-          echo "Issue body: ${{ github.event.issue.body }}"
+      #      - name: "Debug 2"
+      #        run: |
+      #          echo "Name: ${{ fromJson(steps.parse.outputs.payload)["Name"] }}"
 
       - name: "Add Comment"
         run: gh issue comment "$NUMBER" --body "$BODY"
