@@ -42,8 +42,8 @@ jobs:
         env:
           json: ${{ fromJSON(steps.parse.outputs.payload) }}
         run: |
-          echo "Name: ${{ json.Name }}"
-          echo "Name: ${{ fromJSON(steps.parse.outputs.payload)["Name"] }}"
+          echo "Name: ${{ env.json.Details }}"
+          echo "Name: ${{ fromJSON(steps.parse.outputs.payload)["Details"] }}"
 
       - name: "Add Comment"
         run: gh issue comment "$NUMBER" --body "$BODY"
