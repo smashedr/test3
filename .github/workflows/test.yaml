@@ -1,7 +1,11 @@
-name: "Test Job"
+name: "Test"
 
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - master
+  release:
+    types: [published]
 
 jobs:
   test:
@@ -11,11 +15,42 @@ jobs:
 
     steps:
       - name: "Checkout"
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
-      - name: "One"
-        id: one
-        uses: ./.github/parse-issue-form-action
-#      - name: "Debug"
-#        run: |
-#          echo test1: ${{ steps.one.outputs.test1 }}
+      #      - name: "Test"
+      #        id: test
+      #        #uses: smashedr/javascript-action@master
+      #        #uses: ./.github/update-json-value
+      #        #uses: ./.github/js-test-action
+      #        #uses: ./.github/parse-issue-form-action
+      #        with:
+      #          token: ${{ secrets.PORTAINER_TOKEN }}
+
+      #      - name: "Portainer"
+      #        id: test
+      #        uses: ./.github/portainer-swarm-deploy
+      #        with:
+      #          url: https://jammy.local:9443
+      #          token: ${{ secrets.PORTAINER_TOKEN }}
+      #          name: node-discord-hook
+      #          file: docker-compose.yaml
+      #          repo: https://github.com/smashedr/node-discord-hook
+
+      #      - name: "Tags"
+      #        id: test
+      #        uses: ./.github/update-version-tags-action
+      #        with:
+      #          token: ${{ secrets.GITHUB_TOKEN }}
+      #          tags: "fake"
+
+      - name: "Push Artifacts"
+        uses: ./.github/push-artifacts-action
+        with:
+          path: "tests/screenshots/"
+          host: ${{ secrets.RSYNC_HOST }}
+          user: ${{ secrets.RSYNC_USER }}
+          pass: ${{ secrets.RSYNC_PASS }}
+          port: ${{ secrets.RSYNC_PORT }}
+          base: "/home/test/static"
+          webhost: "https://artifacts.hosted-domains.com"
+          webhook: ${{ secrets.DISCORD_WEBHOOK }}

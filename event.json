@@ -1,5 +1,5 @@
 {
-  "ref": "refs/tags/this-is-a-tag",
+  "ref": "refs/pull/1/merge",
   "ref_name": "this-is-a-tag",
   "release": {
     "head": {
