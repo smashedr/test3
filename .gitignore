@@ -6,12 +6,4 @@ __pycache__/
 venv/
 *.log
 settings.ini
-secrets.txt
-.vscode/
-**/dist/
-build/
-node_modules/
-web-ext-artifacts/
-tests/screenshots/
-src/manifest.json
-package-lock.json
+.secrets
