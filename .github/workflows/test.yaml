@@ -1,11 +1,15 @@
 name: "Test"
 
 on:
-  push:
+  #push:
+  #  branches:
+  #    - master
+  pull_request:
     branches:
       - master
   release:
-    types: [published]
+    types:
+      - published
 
 jobs:
   test:
@@ -17,40 +21,100 @@ jobs:
       - name: "Checkout"
         uses: actions/checkout@v4
 
-      #      - name: "Test"
-      #        id: test
-      #        #uses: smashedr/javascript-action@master
-      #        #uses: ./.github/update-json-value
-      #        #uses: ./.github/js-test-action
-      #        #uses: ./.github/parse-issue-form-action
-      #        with:
-      #          token: ${{ secrets.PORTAINER_TOKEN }}
+      #- name: "Test"
+      #  id: test
+      #  #uses: smashedr/javascript-action@master
+      #  #uses: ./.github/update-json-value
+      #  #uses: ./.github/js-test-action
+      #  #uses: ./.github/parse-issue-form-action
+      #  with:
+      #    token: ${{ secrets.PORTAINER_TOKEN }}
 
-      #      - name: "Portainer"
-      #        id: test
-      #        uses: ./.github/portainer-swarm-deploy
-      #        with:
-      #          url: https://jammy.local:9443
-      #          token: ${{ secrets.PORTAINER_TOKEN }}
-      #          name: node-discord-hook
-      #          file: docker-compose.yaml
-      #          repo: https://github.com/smashedr/node-discord-hook
+      #- name: "PY Test Action"
+      #  id: update
+      #  uses: ./.github/py-test-action
+      #  with:
+      #    url: "https://example.com/?ref={ref}"
+      #- name: "Echo Output"
+      #  run: |
+      #    echo '${{ steps.update.outputs.url }}'
 
-      #      - name: "Tags"
-      #        id: test
-      #        uses: ./.github/update-version-tags-action
-      #        with:
-      #          token: ${{ secrets.GITHUB_TOKEN }}
-      #          tags: "fake"
+      #- name: "JS Test Action"
+      #  id: update
+      #  uses: ./.github/js-test-action
+      #  with:
+      #    token: ${{ secrets.GITHUB_TOKEN }}
+      #    body: "Test Body"
+      #- name: "Echo Output"
+      #  run: |
+      #    echo '${{ steps.update.outputs.result }}'
 
-      - name: "Push Artifacts"
-        uses: ./.github/push-artifacts-action
+      #- name: "Test"
+      #  id: json
+      #  uses: ./.github/update-json-value
+      #  with:
+      #    #file: src/manifest.json
+      #    #keys: browser_specific_settings.gecko.strict_min_version
+      #    values: ${{ github.ref_name }}
+      #    write: false
+      #- name: "Echo Results"
+      #  run: echo '${{ steps.json.outputs.result }}'
+
+      - name: "Portainer"
+        id: test
+        uses: ./.github/portainer-swarm-deploy
         with:
-          path: "tests/screenshots/"
-          host: ${{ secrets.RSYNC_HOST }}
-          user: ${{ secrets.RSYNC_USER }}
-          pass: ${{ secrets.RSYNC_PASS }}
-          port: ${{ secrets.RSYNC_PORT }}
-          base: "/home/test/static"
-          webhost: "https://artifacts.hosted-domains.com"
-          webhook: ${{ secrets.DISCORD_WEBHOOK }}
+          url: https://jammy.local:9443
+          token: ${{ secrets.PORTAINER_TOKEN }}
+          name: static-server
+          file: docker-compose.yaml
+          #repo: https://github.com/smashedr/node-discord-hook
+          type: file
+          #env_json: '{"var_name": "Test Value"}'
+          env_file: settings.env
+          standalone: true
+
+      #- name: "Tags"
+      #  id: tags
+      #  uses: ./.github/update-version-tags-action
+      #  with:
+      #    token: ${{ secrets.GITHUB_TOKEN }}
+      #    #tags: "fake"
+      #- name: "Echo Results"
+      #  run: echo '${{ steps.tags.outputs.tags }}'
+
+      #- name: "Push Artifacts"
+      #  uses: ./.github/push-artifacts-action
+      #  with:
+      #    source: "tests/screenshots/"
+      #    #path: "tests/screenshots/"
+      #    dest: "/static"
+      #    #base: "/home/test/static"
+      #    host: ${{ secrets.RSYNC_HOST }}
+      #    user: ${{ secrets.RSYNC_USER }}
+      #    pass: ${{ secrets.RSYNC_PASS }}
+      #    port: ${{ secrets.RSYNC_PORT }}
+      #    webhost: "http://jammy.local:8000/"
+      #    #webhook: ${{ secrets.DISCORD_WEBHOOK }}
+      #    #token: ${{ secrets.GITHUB_TOKEN }}
+
+      #- name: "Mozilla"
+      #  id: update
+      #  uses: ./.github/mozilla-addon-update
+      #  with:
+      #    url: "https://github.com/cssnr/link-extractor/releases/download/{version}/link_extractor-firefox.xpi"
+      #    #tags: "fake"
+      #- name: "Echo Results"
+      #  run: |
+      #    echo '${{ steps.update.outputs.url }}'
+      #    echo '${{ steps.update.outputs.result }}'
+
+      #- name: "VirusTotal"
+      #  id: vt
+      #  uses: ./.github/virustotal-action
+      #  with:
+      #    github_token: ${{ secrets.GITHUB_TOKEN }}
+      #    vt_api_key: ${{ secrets.VT_API_KEY }}
+      #    file_globs: test/*
+      #- name: "Echo Results"
+      #  run: echo ${{ steps.vt.outputs.results }}

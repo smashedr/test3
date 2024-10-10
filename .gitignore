@@ -7,3 +7,4 @@ venv/
 *.log
 settings.ini
 .secrets
+.node_modules/
