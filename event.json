@@ -1,10 +1,22 @@
 {
-  "ref": "refs/tags/this-is-a-tag",
+  "ref": "refs/tags/1.0.0",
   "ref_name": "this-is-a-tag",
+
   "release": {
     "head": {
       "ref": "master"
     },
-    "prerelease": true
+    "prerelease": true,
+    "id": "163692606"
+  },
+
+  "pull_request": {
+    "head": {
+      "ref": "sample-head-ref"
+    },
+    "base": {
+      "ref": "sample-base-ref"
+    },
+    "ref": "refs/pull/20/merge"
   }
 }

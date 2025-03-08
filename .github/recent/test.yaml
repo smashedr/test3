@@ -1,0 +1,21 @@
+name: "Test Job"
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: "Test"
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v2
+
+      - name: "One"
+        id: one
+        uses: ./.github/parse-issue-form-action
+#      - name: "Debug"
+#        run: |
+#          echo test1: ${{ steps.one.outputs.test1 }}

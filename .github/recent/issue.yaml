@@ -26,6 +26,16 @@ jobs:
           echo "Issue title: ${{ github.event.issue.title }}"
           echo "Issue body: ${{ github.event.issue.body }}"
 
+      #      - name: Parse Issue
+      #        id: parser
+      #        uses: issue-ops/parser@v1
+      #        with:
+      #          body: ${{ github.event.issue.body }}
+      #
+      #      - name: Output Issue JSON
+      #        id: output-issue
+      #        run: echo ${{ steps.parser.outputs.json }}
+
       - name: Parse issue
         id: parse
         uses: onmax/issue-form-parser@v1.5
@@ -38,35 +48,36 @@ jobs:
       #          echo 'Site Link: ${{ fromJson(steps.parse.outputs.payload)["Site Link"] }}'
       #          echo 'Details: ${{ fromJson(steps.parse.outputs.payload)["Details"] }}'
 
-      - name: "Debug 2"
-        env:
-          json: ${{ fromJSON(steps.parse.outputs.payload) }}
-        run: |
-          echo "Name: ${{ env.json.Details }}"
+      #      - name: "Debug 2"
+      #        env:
+      #          json: ${{ fromJSON(steps.parse.outputs.payload) }}
+      #        run: |
+      #          echo "Name: ${{ env.json.Details }}"
       #          echo "Name: ${{ fromJSON(steps.parse.outputs.payload)["Details"] }}"
-      - name: "Add Comment"
-        run: gh issue comment "$NUMBER" --body "$BODY"
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GH_REPO: ${{ github.repository }}
-          NUMBER: ${{ github.event.issue.number }}
-          BODY: >
-            This issue is available for anyone to work on.  
-            **Make sure to reference this issue in your pull request.**  
-            :sparkles: Thank you for your contribution! :sparkles:
 
-#      - name: "Install"
-#        run: |
-#          npm install
-#
-#      - name: "Lint"
-#        run: |
-#          npm run lint
-#
-#      - name: "Test"
-#        run: |
-#          npm run test
-#
+      #      - name: "Add Comment"
+      #        run: gh issue comment "$NUMBER" --body "$BODY"
+      #        env:
+      #          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #          GH_REPO: ${{ github.repository }}
+      #          NUMBER: ${{ github.event.issue.number }}
+      #          BODY: >
+      #            This issue is available for anyone to work on.
+      #            **Make sure to reference this issue in your pull request.**
+      #            :sparkles: Thank you for your contribution! :sparkles:
+
+      - name: "Install"
+        run: |
+          npm install
+
+      - name: "Lint"
+        run: |
+          npm run lint
+
+      - name: "Test"
+        run: |
+          npm run test
+
 #      - name: "Push Artifacts"
 #        uses: cssnr/push-artifacts-action@master
 #        with:

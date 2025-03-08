@@ -3,11 +3,14 @@ name: Build
 on:
   release:
     types: [published]
-  pull_request:
+
+env:
+  REGISTRY: ghcr.io
+  USER: ${{ github.repository_owner }}
 
 jobs:
   build:
-    name: 'Build'
+    name: "Build"
     runs-on: ubuntu-latest
     timeout-minutes: 15
     strategy:
@@ -16,14 +19,14 @@ jobs:
         include:
           - dockerfile: ./nginx/Dockerfile
             image: ghcr.io/${{ github.repository }}-nginx
-          - dockerfile: ./app/Dockerfile
-            image: ghcr.io/${{ github.repository }}-app
+    #          - dockerfile: ./app/Dockerfile
+    #            image: ghcr.io/${{ github.repository }}-app
     permissions:
       contents: read
       packages: write
 
     steps:
-      - name: 'Checkout'
+      - name: "Checkout"
         uses: actions/checkout@v4
 
       #      - name: 'Docker Login'
@@ -38,25 +41,42 @@ jobs:
       #        with:
       #          platforms: linux/amd64,linux/arm64
 
-      - name: 'Docker Metadata'
-        id: meta
-        uses: docker/metadata-action@v5
-        env:
-          latest: ${{ ! github.event.release.prerelease && github.event_name == 'release' }}
+      #      - name: "Docker Metadata"
+      #        id: meta
+      #        uses: docker/metadata-action@v5
+      #        with:
+      #          images: ${{ matrix.image }}
+      #          flavor: |
+      #            latest=false
+      #          tags: |
+      #            type=ref,event=tag,value=${{ github.ref }}
+      #            type=raw,value=latest,enable=${{ ! github.event.release.prerelease  }}
+
+      #      - name: "Debug 1"
+      #        run: |
+      #          echo "file: ${{ matrix.dockerfile }}"
+      #          echo "image: ${{ matrix.image }}"
+
+      #      - name: 'JS'
+      #        #uses: smashedr/javascript-action@master
+      #        uses: ./.github/update-json-value
+      #        with:
+      #          file: src/manifest.json
+
+      - name: "Docker Tags"
+        uses: ./.github/docker-tags
+        #        uses: smashedr/js-test-action@master
+        id: tags
         with:
           images: ${{ matrix.image }}
-          flavor: |
-            latest=false
-          tags: |
-            type=ref,event=pr
-            type=ref,event=tag
-            type=raw,value=latest,enable=${{ env.latest }}
 
-      - name: 'Debug'
+      - name: "Debug 2"
         run: |
           echo "file: ${{ matrix.dockerfile }}"
           echo "image: ${{ matrix.image }}"
-          echo "tags: ${{ steps.meta.outputs.tags }}"
+          echo "tags: ${{ steps.tags.outputs.tags }}"
+
+#          echo "meta: ${{ steps.meta.outputs.tags }}"
 
 #      - name: 'Build and Push'
 #        uses: docker/build-push-action@v4

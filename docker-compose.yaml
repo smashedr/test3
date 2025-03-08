@@ -1,0 +1,48 @@
+version: "3.7"
+
+services:
+  nginx:
+    #build:
+    #  context: nginx
+    image: ghcr.io/smashedr/docker-nginx-static:latest
+    #environment:
+    #  SUID: 1000
+    #  STATIC: /static
+    deploy:
+      mode: global
+      resources:
+        limits:
+          cpus: "1.0"
+          memory: 25M
+    volumes:
+      - static:/static
+    ports:
+      - "${WEB_PORT:?err}:80"
+
+  openssh-server:
+    image: lscr.io/linuxserver/openssh-server:latest
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
+      - SUDO_ACCESS=false
+      - PASSWORD_ACCESS=true
+      - USER_NAME=${USER_NAME:?err}
+      - USER_PASSWORD=${USER_PASSWORD:?err}
+      - DOCKER_MODS=linuxserver/mods:openssh-server-rsync
+      - LOG_STDOUT=true
+    deploy:
+      mode: global
+      resources:
+        limits:
+          cpus: "1.0"
+          memory: 25M
+    volumes:
+      - config:/config
+      - static:/static
+    ports:
+      - "${DOCKER_PORT:?err}:2222"
+
+volumes:
+  static:
+  config:
