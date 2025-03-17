@@ -10,6 +10,10 @@ on:
         description: "Skip Non Pre-Releases"
         type: boolean
         default: true
+      max:
+        description: "Max Releases to Process"
+        type: number
+        default: 30
 
 jobs:
   notes:
@@ -26,6 +30,7 @@ jobs:
         with:
           previous: ${{ inputs.previous }}
           pre: ${{ inputs.pre }}
+          max: ${{ inputs.max }}
           update: false
 
       - name: "Echo Markdown"
