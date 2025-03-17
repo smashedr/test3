@@ -1,4 +1,4 @@
-name: "Generate Notes"
+name: "Combine Notes"
 
 on:
   workflow_dispatch:
@@ -26,7 +26,7 @@ jobs:
     steps:
       - name: "Combine Release Notes Action"
         id: notes
-        uses: smashedr/combine-release-notes-action@update
+        uses: smashedr/combine-release-notes-action@master
         with:
           previous: ${{ inputs.previous }}
           pre: ${{ inputs.pre }}
