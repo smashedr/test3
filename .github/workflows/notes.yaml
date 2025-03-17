@@ -29,5 +29,8 @@ jobs:
           update: false
 
       - name: "Echo Markdown"
+        continue-on-error: true
+        env:
+          MARKDOWN: ${{ steps.notes.outputs.markdown }}
         run: |
-          echo ${{ steps.notes.outputs.markdown }}
+          echo "${MARKDOWN}"
