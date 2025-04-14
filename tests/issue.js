@@ -1,4 +1,3 @@
-// import { getBrowser, getWorker, getPage, screenshot } from './test.js'
 const puppeteer = require('puppeteer')
 const path = require('path')
 const fs = require('fs')
@@ -106,32 +105,44 @@ async function scrollPage() {
     })
     await new Promise((resolve) => setTimeout(resolve, 500))
 }
-const url = process.argv[2]
 
 ;(async () => {
     fs.rmSync(screenshotsDir, { recursive: true, force: true })
     fs.mkdirSync(screenshotsDir)
 
-    const browser = await getBrowser()
+    // Get Browser
+    browser = await getBrowser()
+    console.log('browser:', browser)
+
+    // Get Service Worker
     const worker = await getWorker()
+    console.log('worker:', worker)
+
     const logs = []
 
-    const page = await browser.newPage()
+    const url = process.argv[2]
+    page = await browser.newPage()
     await page.goto(url)
-    page.on('console', (msg) => logs.push(msg))
+    page.on('console', (msg) => {
+        logs.push(msg)
+        console.log(`console: ${url}:`, msg.text())
+    })
     await page.bringToFront()
     await page.waitForNetworkIdle()
 
     await worker.evaluate('chrome.action.openPopup();')
-    let popupPage = await getPage('popup.html', true)
-    popupPage.on('console', (msg) => logs.push(msg))
-    await popupPage.locator('a[data-filter=""]').click()
+    page = await getPage('popup.html', true)
+    page.on('console', (msg) => logs.push(msg.text()))
+    await page.locator('a[data-filter=""]').click()
 
-    const linksPage = await getPage('links.html', true, '768x920')
-    linksPage.on('console', (msg) => logs.push(msg))
+    page = await getPage('links.html', true, '768x920')
+    page.on('console', (msg) => logs.push(msg.text()))
     await page.waitForNetworkIdle()
     await screenshot('links')
 
     await browser.close()
     console.log('logs:', logs)
+    // for (const msg of logs) {
+    //     console.log('msg:', msg.text())
+    // }
 })()
